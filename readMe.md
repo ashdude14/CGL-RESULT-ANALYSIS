@@ -37,7 +37,18 @@
 
 ### Data Collection
 - Converting examination result PDFs to CSV format using the **PyPDF2** library for structured data analysis.
-
+  -  python script for the data extraction and writing to csv file :
+```python
+    def writeCsv(input_file_path, output_file_path):
+    with open(input_file_path, "rb") as f:
+      reader = PyPDF2.PdfReader(f)
+      with open(output_file_path, "w", encoding="utf-8", newline="") as f:
+       csv_writer = csv.writer(f)
+       csv_writer.writerow(["Page Number", "Text Content"])
+       for page_number,page in enumerate(reader.pages,start=1) :
+          csv_writer.writerow([page_number,page.extract_text()])
+   ```
+  - output console which calculates duration to execute the script : 
 ```bash
 PS K:\DataAnalyst\SSC-CGL-2024-RESULT-ANALYSIS\.venv\Scripts> python.exe ../../collect.py
 Total time taken to write data for LIST_2 (sec) :  5.281536102294922
